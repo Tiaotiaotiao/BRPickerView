@@ -1680,6 +1680,11 @@ typedef NS_ENUM(NSInteger, BRDatePickerStyle) {
             // 添加日期单位到选择器
             [self addUnitLabel];
         }
+        
+        self.midBgView = [[UIView alloc] initWithFrame:CGRectZero];
+        self.midBgView.backgroundColor = self.midBgColor;
+        self.midBgView.layer.cornerRadius = 7;
+        [self insertSubview:self.midBgView atIndex:0];
     }
     
     // ③添加中间选择行的两条分割线
@@ -2036,5 +2041,27 @@ typedef NS_ENUM(NSInteger, BRDatePickerStyle) {
         [dataArr addObject:endDate];
     return dataArr;
 }
+
+#pragma mark - Tiaotiao custom
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
+    if ([self.pickerView superview]) {
+        UIView *superV = [self.pickerView superview];
+        CGFloat pickerHeaderViewHeight = self.pickerHeaderView ? self.pickerHeaderView.bounds.size.height : 0;
+        CGFloat pickerFooterViewHeight = self.pickerFooterView ? self.pickerFooterView.bounds.size.height : 0;
+        self.pickerView.frame = CGRectMake(20, pickerHeaderViewHeight, superV.bounds.size.width - 20 * 2, superV.bounds.size.height - pickerHeaderViewHeight - pickerFooterViewHeight);
+    }
+
+//    if ([self.yearLabel superview]) {
+//        self.yearLabel.frame = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
+//    }
+    
+    if ([self.midBgView superview]) {
+        self.midBgView.frame = CGRectMake(self.midBgLeft, self.pickerView.bounds.size.height * 0.5 - self.pickerStyle.rowHeight * 0.5, self.bounds.size.width - self.midBgLeft * 2, self.pickerStyle.rowHeight);
+    }
+}
+
 
 @end

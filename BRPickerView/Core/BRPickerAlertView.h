@@ -42,6 +42,10 @@ typedef void(^BRPickerAlertDoneBlock)(void);
 /** 组件的父视图：可以传 自己获取的 keyWindow，或页面的 view */
 @property (nullable, nonatomic, strong) UIView *keyView;
 
+/// Tiaotiao custom
+@property (nonatomic, nullable, strong) UIView *midBgView;
+@property (nonatomic, strong) UIColor *midBgColor;
+@property (nonatomic, assign) NSInteger midBgLeft;
 
 /// 刷新选择器数据
 /// 应用场景：动态更新数据源、动态更新选择的值、选择器类型切换等
